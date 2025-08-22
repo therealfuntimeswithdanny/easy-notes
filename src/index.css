@@ -130,6 +130,31 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  .prose {
+    @apply text-foreground;
+  }
+  
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    @apply text-foreground;
+  }
+  
+  .prose strong {
+    @apply text-foreground;
+  }
+  
+  .prose code {
+    @apply text-foreground bg-muted px-1 py-0.5 rounded;
+  }
+  
+  .prose pre {
+    @apply bg-muted;
+  }
+  
+  .prose blockquote {
+    @apply text-muted-foreground border-l-accent;
   }
 }
