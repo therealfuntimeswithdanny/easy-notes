@@ -1,27 +1,44 @@
-import { useState, useEffect } from "react";
-import { User, Session } from '@supabase/supabase-js';
-import AuthPage from "@/components/AuthPage";
-import NotesApp from "@/components/NotesApp";
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { NotesApp } from '@/components/NotesApp';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
 
 const Index = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
 
-  const handleAuthSuccess = (user: User, session: Session) => {
-    setUser(user);
-    setSession(session);
-  };
-
-  const handleSignOut = () => {
-    setUser(null);
-    setSession(null);
-  };
-
-  if (!user || !session) {
-    return <AuthPage onAuthSuccess={handleAuthSuccess} />;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
   }
 
-  return <NotesApp user={user} session={session} onSignOut={handleSignOut} />;
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-subtle">
+        <div className="text-center max-w-md mx-auto p-8">
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+            QuillPad Notes
+          </h1>
+          <p className="text-lg text-muted-foreground mb-8">
+            Your minimal markdown note-taking companion. Write, organize, and sync your thoughts seamlessly.
+          </p>
+          <Button 
+            onClick={() => navigate('/auth')}
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            Get Started
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return <NotesApp />;
 };
 
 export default Index;
