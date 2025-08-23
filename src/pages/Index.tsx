@@ -39,11 +39,11 @@ const hostingInfo = [
 ];
 
 const colorThemes = [
-	{ name: 'Green', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.42.35.png' },
-	{ name: 'Red', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.47.57.png' },
-	{ name: 'Blue', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.48.04.png' },
-	{ name: 'Purple', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.48.10.png' },
-	{ name: 'Orange', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.48.17.png' },
+	{ name: 'Green', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2347.jpeg' },
+	{ name: 'Red', image: ' https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2346.png' },
+	{ name: 'Blue', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2345.png' },
+	{ name: 'Purple', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2348.png' },
+	{ name: 'Orange', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2349.png' },
 ];
 
 const Index = () => {
