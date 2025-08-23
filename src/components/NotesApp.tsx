@@ -46,7 +46,7 @@ export const NotesApp = () => {
         setSelectedNote(data[0]);
       }
     } catch (error: any) {
-      toast.error('Failed to load notes');
+      toast.error('Failed to conect to Database, notes not loaded');
     } finally {
       setLoading(false);
     }
@@ -60,7 +60,7 @@ export const NotesApp = () => {
         .from('notes')
         .insert({
           user_id: user.id,
-          title: 'Untitled',
+          title: 'Cick to add tittle',
           content: '# New Note\n\nStart writing...',
           pinned: false,
           tags: [],
@@ -75,7 +75,7 @@ export const NotesApp = () => {
       setSelectedNote(newNote);
       toast.success('New note created');
     } catch (error: any) {
-      toast.error('Failed to create note');
+      toast.error('Failed to Conect to Databse, note not created');
     }
   };
 
@@ -96,7 +96,7 @@ export const NotesApp = () => {
         setSelectedNote(prev => prev ? { ...prev, ...updates } : null);
       }
     } catch (error: any) {
-      toast.error('Failed to save note');
+      toast.error('Failed to connect to Database, note not saved');
     }
   };
 
@@ -118,7 +118,7 @@ export const NotesApp = () => {
       
       toast.success('Note deleted');
     } catch (error: any) {
-      toast.error('Failed to delete note');
+      toast.error('Failed to conect to Database, note not deleted');
     }
   };
 
@@ -153,7 +153,7 @@ export const NotesApp = () => {
       
       toast.success(note.pinned ? 'Note unpinned' : 'Note pinned');
     } catch (error: any) {
-      toast.error('Failed to update pin status');
+      toast.error('Failed to conect to Databse');
     }
   };
 
@@ -210,11 +210,11 @@ export const NotesApp = () => {
             </Button>
             
             <h1 className="text-xl font-semibold bg-gradient-primary bg-clip-text text-transparent">
-              QuillPad Notes
+              Easy Notes
             </h1>
             <Button onClick={createNote} size="sm" className="gap-2 hidden sm:flex">
               <Plus className="h-4 w-4" />
-              New Note
+               Create New Note
             </Button>
             <Button onClick={createNote} size="sm" className="sm:hidden">
               <Plus className="h-4 w-4" />
