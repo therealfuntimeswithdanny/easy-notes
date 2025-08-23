@@ -2,7 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { NotesApp } from '@/components/NotesApp';
 import { Button } from '@/components/ui/button';
-import { Loader2, CheckCircle, Cloud, Lock } from 'lucide-react';
+import { Loader2, CheckCircle, Cloud, Lock, Database, Server } from 'lucide-react';
 
 const features = [
 	{
@@ -19,6 +19,22 @@ const features = [
 		icon: <Lock className="h-6 w-6 text-primary" />,
 		title: 'Private & Secure',
 		desc: 'Your notes are safe and only accessible by you.',
+	},
+];
+
+const databaseInfo = [
+	{
+		icon: <Database className="h-6 w-6 text-primary" />,
+		title: 'Powered by Supabase',
+		desc: 'Reliable relational database ensures your notes are stored safely with lightning-fast access.',
+	},
+];
+
+const hostingInfo = [
+	{
+		icon: <Server className="h-6 w-6 text-primary" />,
+		title: 'Hosted on Vercel',
+		desc: 'Deployed on Vercel’s global edge network for fast, scalable, and secure access worldwide.',
 	},
 ];
 
@@ -39,8 +55,8 @@ const Index = () => {
 			<div className="min-h-screen flex flex-col bg-gradient-subtle">
 				{/* Hero Section */}
 				<header className="flex-1 flex flex-col justify-center items-center py-24 px-4">
-					<h1 className="text-5xl sm:text-6xl   /* responsive font sizes */ Font-extrabold         /* bold headline */ mb-4                   /* spacing below */ bg-gradient-primary    /* gradient text * bg-clip-text drop-shadow            /* subtle text shadow */">
-					 Easy Notes
+					<h1 className="text-5xl sm:text-6xl font-extrabold mb-4 bg-gradient-primary bg-clip-text text-transparent drop-shadow">
+						Easy Notes
 					</h1>
 
 					<p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-2xl text-center">
@@ -55,6 +71,7 @@ const Index = () => {
 						Get Started Free
 					</Button>
 				</header>
+
 				{/* Features Section */}
 				<section className="py-12 px-4 bg-card shadow-soft rounded-t-3xl max-w-3xl mx-auto w-full">
 					<div className="flex flex-col sm:flex-row justify-center gap-8">
@@ -65,16 +82,47 @@ const Index = () => {
 							>
 								<div className="mb-2">{f.icon}</div>
 								<h3 className="font-semibold text-lg">{f.title}</h3>
-								<p className="text-muted-foreground text-sm">
-									{f.desc}
-								</p>
+								<p className="text-muted-foreground text-sm">{f.desc}</p>
 							</div>
 						))}
 					</div>
 				</section>
+
+				{/* Database Section */}
+				<section className="py-12 px-4 bg-background max-w-3xl mx-auto w-full">
+					<div className="flex flex-col sm:flex-row justify-center gap-8">
+						{databaseInfo.map((d, i) => (
+							<div
+								key={i}
+								className="flex flex-col items-center text-center gap-2 flex-1"
+							>
+								<div className="mb-2">{d.icon}</div>
+								<h3 className="font-semibold text-lg">{d.title}</h3>
+								<p className="text-muted-foreground text-sm">{d.desc}</p>
+							</div>
+						))}
+					</div>
+				</section>
+
+				{/* Hosting Section */}
+				<section className="py-12 px-4 bg-card shadow-soft max-w-3xl mx-auto w-full rounded-3xl">
+					<div className="flex flex-col sm:flex-row justify-center gap-8">
+						{hostingInfo.map((h, i) => (
+							<div
+								key={i}
+								className="flex flex-col items-center text-center gap-2 flex-1"
+							>
+								<div className="mb-2">{h.icon}</div>
+								<h3 className="font-semibold text-lg">{h.title}</h3>
+								<p className="text-muted-foreground text-sm">{h.desc}</p>
+							</div>
+						))}
+					</div>
+				</section>
+
 				{/* Footer */}
 				<footer className="py-6 text-center text-xs text-muted-foreground">
-					&copy; {new Date().getFullYear()}Easy Notes. All rights reserved.
+					&copy; {new Date().getFullYear()} Easy Notes. All rights reserved.
 				</footer>
 			</div>
 		);
