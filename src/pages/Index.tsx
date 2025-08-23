@@ -39,9 +39,10 @@ const Index = () => {
 			<div className="min-h-screen flex flex-col bg-gradient-subtle">
 				{/* Hero Section */}
 				<header className="flex-1 flex flex-col justify-center items-center py-24 px-4">
-					<h1 className="text-5xl sm:text-6xl font-extrabold mb-4 bg-gradient-primary bg-clip-text text-transparent drop-shadow">
-						QuillPad Notes
+					<h1 className="text-5xl sm:text-6xl   /* responsive font sizes */ Font-extrabold         /* bold headline */ mb-4                   /* spacing below */ bg-gradient-primary    /* gradient text * bg-clip-text text-transparent drop-shadow            /* subtle text shadow */">
+					 QuillPad Notes
 					</h1>
+
 					<p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-2xl text-center">
 						Your minimal markdown note-taking companion. Write, organize, and sync
 						your thoughts seamlessly.

@@ -3,11 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL. */
+/* ==========================================================
+   Design System – All colors MUST be in HSL
+   Themes: Default, Red, Blue, Green, Purple, Orange, White
+   ========================================================== */
 @layer base {
   :root {
-    /* Default theme - Notes app color palette - warm, minimal */
+    /* Default Theme - warm, minimal */
     --background: 48 20% 98%;
     --foreground: 24 20% 12%;
 
@@ -34,7 +36,7 @@ All colors MUST be HSL. */
     --destructive-foreground: 48 30% 99%;
   }
 
-  /* Red Theme - vibrant and warm */
+  /* ================= RED THEME ================= */
   .theme-red {
     --background: 0 90% 95%;
     --foreground: 0 80% 20%;
@@ -62,7 +64,7 @@ All colors MUST be HSL. */
     --destructive-foreground: 0 90% 98%;
   }
 
-  /* Blue Theme - calm and cool */
+  /* ================= BLUE THEME ================= */
   .theme-blue {
     --background: 210 90% 95%;
     --foreground: 210 80% 15%;
@@ -90,7 +92,7 @@ All colors MUST be HSL. */
     --destructive-foreground: 210 90% 98%;
   }
 
-  /* Green Theme - fresh and natural */
+  /* ================= GREEN THEME ================= */
   .theme-green {
     --background: 120 60% 95%;
     --foreground: 120 40% 15%;
@@ -114,11 +116,11 @@ All colors MUST be HSL. */
     --accent: 120 40% 80%;
     --accent-foreground: 120 40% 15%;
 
-    --destructive: 0 75% 55%; /* Kept consistent for destructive actions */
+    --destructive: 0 75% 55%;
     --destructive-foreground: 120 60% 98%;
   }
 
-  /* Purple Theme - elegant and regal */
+  /* ================= PURPLE THEME ================= */
   .theme-purple {
     --background: 270 50% 95%;
     --foreground: 270 40% 20%;
@@ -142,11 +144,11 @@ All colors MUST be HSL. */
     --accent: 270 40% 80%;
     --accent-foreground: 270 40% 20%;
 
-    --destructive: 0 75% 55%; /* Kept consistent for destructive actions */
+    --destructive: 0 75% 55%;
     --destructive-foreground: 270 50% 98%;
   }
 
-  /* Orange Theme - energetic and vibrant */
+  /* ================= ORANGE THEME ================= */
   .theme-orange {
     --background: 30 90% 95%;
     --foreground: 30 80% 20%;
@@ -170,10 +172,12 @@ All colors MUST be HSL. */
     --accent: 30 50% 80%;
     --accent-foreground: 30 40% 20%;
 
-    --destructive: 0 75% 55%; /* Kept consistent for destructive actions */
+    --destructive: 0 75% 55%;
     --destructive-foreground: 30 90% 98%;
-    
-    .theme-white {
+  }
+
+  /* ================= WHITE THEME ================= */
+  .theme-white {
     --background: 48 20% 98%;
     --foreground: 24 20% 12%;
 
@@ -198,6 +202,5 @@ All colors MUST be HSL. */
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 48 30% 99%;
-  }
   }
 }
