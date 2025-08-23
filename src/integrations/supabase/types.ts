@@ -19,6 +19,8 @@ export type Database = {
           content: string | null
           created_at: string
           id: string
+          pinned: boolean
+          tags: string[] | null
           title: string
           updated_at: string
           user_id: string
@@ -27,6 +29,8 @@ export type Database = {
           content?: string | null
           created_at?: string
           id?: string
+          pinned?: boolean
+          tags?: string[] | null
           title?: string
           updated_at?: string
           user_id: string
@@ -35,6 +39,8 @@ export type Database = {
           content?: string | null
           created_at?: string
           id?: string
+          pinned?: boolean
+          tags?: string[] | null
           title?: string
           updated_at?: string
           user_id?: string

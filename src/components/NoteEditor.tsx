@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { Input } from '@/components/ui/input';
+import { TagsInput } from './TagsInput';
 import { debounce } from 'lodash';
 
 interface Note {
@@ -9,6 +10,8 @@ interface Note {
   content: string;
   created_at: string;
   updated_at: string;
+  pinned: boolean;
+  tags: string[];
 }
 
 interface NoteEditorProps {
@@ -19,12 +22,14 @@ interface NoteEditorProps {
 export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content);
+  const [tags, setTags] = useState(note.tags || []);
 
   // Update local state when note changes
   useEffect(() => {
     setTitle(note.title);
     setContent(note.content);
-  }, [note.id, note.title, note.content]);
+    setTags(note.tags || []);
+  }, [note.id, note.title, note.content, note.tags]);
 
   // Debounced save functions
   const debouncedSaveTitle = useCallback(
@@ -45,6 +50,15 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
     [note.id, note.content, onUpdateNote]
   );
 
+  const debouncedSaveTags = useCallback(
+    debounce((newTags: string[]) => {
+      if (JSON.stringify(newTags) !== JSON.stringify(note.tags)) {
+        onUpdateNote(note.id, { tags: newTags });
+      }
+    }, 1000),
+    [note.id, note.tags, onUpdateNote]
+  );
+
   const handleTitleChange = (newTitle: string) => {
     setTitle(newTitle);
     debouncedSaveTitle(newTitle);
@@ -53,6 +67,11 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
   const handleContentChange = (newContent: string = '') => {
     setContent(newContent);
     debouncedSaveContent(newContent);
+  };
+
+  const handleTagsChange = (newTags: string[]) => {
+    setTags(newTags);
+    debouncedSaveTags(newTags);
   };
 
   return (
@@ -64,6 +83,15 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
           onChange={(e) => handleTitleChange(e.target.value)}
           className="text-lg sm:text-xl font-semibold border-none bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
           placeholder="Note title..."
+        />
+      </div>
+
+      {/* Tags */}
+      <div className="p-4 sm:p-6 border-b bg-card/30">
+        <TagsInput
+          tags={tags}
+          onTagsChange={handleTagsChange}
+          placeholder="Add tags..."
         />
       </div>
 

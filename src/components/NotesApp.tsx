@@ -15,6 +15,8 @@ interface Note {
   content: string;
   created_at: string;
   updated_at: string;
+  pinned: boolean;
+  tags: string[];
 }
 
 export const NotesApp = () => {
@@ -35,6 +37,7 @@ export const NotesApp = () => {
       const { data, error } = await supabase
         .from('notes')
         .select('*')
+        .order('pinned', { ascending: false })
         .order('updated_at', { ascending: false });
 
       if (error) throw error;
@@ -59,6 +62,8 @@ export const NotesApp = () => {
           user_id: user.id,
           title: 'Untitled',
           content: '# New Note\n\nStart writing...',
+          pinned: false,
+          tags: [],
         })
         .select()
         .single();
@@ -122,6 +127,36 @@ export const NotesApp = () => {
     toast.success('Signed out successfully');
   };
 
+  const togglePin = async (noteId: string) => {
+    const note = notes.find(n => n.id === noteId);
+    if (!note) return;
+
+    try {
+      const { error } = await supabase
+        .from('notes')
+        .update({ pinned: !note.pinned })
+        .eq('id', noteId);
+
+      if (error) throw error;
+
+      setNotes(prev => prev.map(note => 
+        note.id === noteId ? { ...note, pinned: !note.pinned } : note
+      ).sort((a, b) => {
+        // Sort by pinned first, then by updated_at
+        if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+        return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+      }));
+      
+      if (selectedNote?.id === noteId) {
+        setSelectedNote(prev => prev ? { ...prev, pinned: !prev.pinned } : null);
+      }
+      
+      toast.success(note.pinned ? 'Note unpinned' : 'Note pinned');
+    } catch (error: any) {
+      toast.error('Failed to update pin status');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -156,6 +191,7 @@ export const NotesApp = () => {
             setSidebarOpen(false); // Close sidebar on mobile when note is selected
           }}
           onDeleteNote={deleteNote}
+          onTogglePin={togglePin}
         />
       </div>
       
