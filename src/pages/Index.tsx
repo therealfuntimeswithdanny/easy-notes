@@ -2,7 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { NotesApp } from '@/components/NotesApp';
 import { Button } from '@/components/ui/button';
-import { Loader2, CheckCircle, Cloud, Lock, Database, Server } from 'lucide-react';
+import { Loader2, CheckCircle, Cloud, Lock, Database, Server, Palette } from 'lucide-react';
 
 const features = [
 	{
@@ -38,6 +38,14 @@ const hostingInfo = [
 	},
 ];
 
+const colorThemes = [
+	{ name: 'Green', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.42.35.png' },
+	{ name: 'Red', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.47.57.png' },
+	{ name: 'Blue', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.48.04.png' },
+	{ name: 'Purple', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.48.10.png' },
+	{ name: 'Orange', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.48.17.png' },
+];
+
 const Index = () => {
 	const { user, loading } = useAuth();
 	const navigate = useNavigate();
@@ -55,7 +63,7 @@ const Index = () => {
 			<div className="min-h-screen flex flex-col bg-gradient-subtle">
 				{/* Hero Section */}
 				<header className="flex-1 flex flex-col justify-center items-center py-24 px-4">
-					<h1 className="text-5xl sm:text-6xl font-extrabold mb-4 bg-gradient-primary bg-clip-text text-transparent drop-shadow">
+					<h1 className="text-5xl sm:text-6xl font-extrabold mb-4 bg-gradient-primary bg-clip-text drop-shadow">
 						Easy Notes
 					</h1>
 
@@ -105,7 +113,7 @@ const Index = () => {
 				</section>
 
 				{/* Hosting Section */}
-				<section className="py-12 px-4 bg-card shadow-soft max-w-3xl mx-auto w-full rounded-3xl">
+				<section className="py-12 px-4 bg-card shadow-soft max-w-3xl mx-auto w-full rounded-b-3xl">
 					<div className="flex flex-col sm:flex-row justify-center gap-8">
 						{hostingInfo.map((h, i) => (
 							<div
@@ -115,6 +123,29 @@ const Index = () => {
 								<div className="mb-2">{h.icon}</div>
 								<h3 className="font-semibold text-lg">{h.title}</h3>
 								<p className="text-muted-foreground text-sm">{h.desc}</p>
+							</div>
+						))}
+					</div>
+				</section>
+
+				{/* Color Themes Section */}
+				<section className="py-12 px-4 bg-background max-w-5xl mx-auto w-full">
+					<div className="flex flex-col items-center mb-8">
+						<Palette className="h-8 w-8 text-primary mb-2" />
+						<h2 className="text-2xl font-bold">Choose Your Theme</h2>
+						<p className="text-muted-foreground text-sm text-center max-w-md">
+							Personalize your notes with color themes that match your style.
+						</p>
+					</div>
+					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+						{colorThemes.map((theme, i) => (
+							<div key={i} className="flex flex-col items-center text-center">
+								<img
+									src={theme.image}
+									alt={`${theme.name} Theme`}
+									className="w-20 h-20 rounded-xl shadow-md border"
+								/>
+								<p className="mt-2 text-sm font-medium">{theme.name}</p>
 							</div>
 						))}
 					</div>
