@@ -16,6 +16,7 @@ const colorThemes = [
   { value: 'blue', label: 'Blue', color: 'hsl(220 70% 50%)' },
   { value: 'purple', label: 'Purple', color: 'hsl(270 70% 50%)' },
   { value: 'orange', label: 'Orange', color: 'hsl(30 70% 50%)' },
+  { value: 'white', label: 'White', color: 'hsl(0 0% 100%' },
 ];
 
 export function ThemeToggle() {
