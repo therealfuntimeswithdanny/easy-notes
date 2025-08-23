@@ -40,10 +40,10 @@ const hostingInfo = [
 
 const colorThemes = [
 	{ name: 'Green', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2347.jpeg' },
-	{ name: 'Red', image: ' https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2346.png' },
+	{ name: 'Red', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2346.png' },
 	{ name: 'Blue', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2345.png' },
 	{ name: 'Purple', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2348.png' },
-	{ name: 'Orange', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/IMG_2349.png' },
+	{ name: 'Orange', image: 'https://public-danielmorrisey-com.danielmorrisey.com/easy-note/Screenshot%202025-08-23%20at%2010.48.17.png' },
 ];
 
 const Index = () => {
@@ -140,11 +140,13 @@ const Index = () => {
 					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
 						{colorThemes.map((theme, i) => (
 							<div key={i} className="flex flex-col items-center text-center">
-								<img
-									src={theme.image}
-									alt={`${theme.name} Theme`}
-									className="w-20 h-20 rounded-xl shadow-md border"
-								/>
+								<div className="w-24 h-40 rounded-xl shadow-md border overflow-hidden bg-card">
+									<img
+										src={theme.image}
+										alt={`${theme.name} Theme`}
+										className="w-full h-full object-cover"
+									/>
+								</div>
 								<p className="mt-2 text-sm font-medium">{theme.name}</p>
 							</div>
 						))}
