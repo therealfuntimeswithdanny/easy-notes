@@ -130,6 +130,7 @@ All colors MUST be HSL.
     --primary-hover: 0 70% 45%;
     --gradient-primary: linear-gradient(135deg, hsl(0 70% 50%), hsl(0 75% 55%));
     --ring: 0 70% 50%;
+    --background: 0 40% 98%;
   }
 
   .theme-red.dark {
@@ -138,6 +139,7 @@ All colors MUST be HSL.
     --primary-hover: 0 75% 65%;
     --gradient-primary: linear-gradient(135deg, hsl(0 75% 60%), hsl(0 80% 65%));
     --ring: 0 75% 60%;
+    --background: 0 30% 10%;
   }
 
   .theme-blue {
@@ -146,6 +148,7 @@ All colors MUST be HSL.
     --primary-hover: 220 70% 45%;
     --gradient-primary: linear-gradient(135deg, hsl(220 70% 50%), hsl(220 75% 55%));
     --ring: 220 70% 50%;
+    --background: 220 40% 98%;
   }
 
   .theme-blue.dark {
@@ -154,6 +157,7 @@ All colors MUST be HSL.
     --primary-hover: 220 75% 65%;
     --gradient-primary: linear-gradient(135deg, hsl(220 75% 60%), hsl(220 80% 65%));
     --ring: 220 75% 60%;
+    --background: 220 30% 12%;
   }
 
   .theme-purple {
@@ -162,6 +166,7 @@ All colors MUST be HSL.
     --primary-hover: 270 70% 45%;
     --gradient-primary: linear-gradient(135deg, hsl(270 70% 50%), hsl(270 75% 55%));
     --ring: 270 70% 50%;
+    --background: 270 40% 98%;
   }
 
   .theme-purple.dark {
@@ -170,6 +175,7 @@ All colors MUST be HSL.
     --primary-hover: 270 75% 65%;
     --gradient-primary: linear-gradient(135deg, hsl(270 75% 60%), hsl(270 80% 65%));
     --ring: 270 75% 60%;
+    --background: 270 30% 12%;
   }
 
   .theme-orange {
@@ -178,6 +184,7 @@ All colors MUST be HSL.
     --primary-hover: 30 70% 45%;
     --gradient-primary: linear-gradient(135deg, hsl(30 70% 50%), hsl(30 75% 55%));
     --ring: 30 70% 50%;
+    --background: 30 40% 98%;
   }
 
   .theme-orange.dark {
@@ -186,6 +193,7 @@ All colors MUST be HSL.
     --primary-hover: 30 75% 65%;
     --gradient-primary: linear-gradient(135deg, hsl(30 75% 60%), hsl(30 80% 65%));
     --ring: 30 75% 60%;
+    --background: 30 30% 12%;
   }
 }
 
