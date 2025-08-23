@@ -58,17 +58,17 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
   return (
     <div className="h-full flex flex-col bg-editor-bg">
       {/* Title */}
-      <div className="p-6 border-b bg-card/50">
+      <div className="p-4 sm:p-6 border-b bg-card/50">
         <Input
           value={title}
           onChange={(e) => handleTitleChange(e.target.value)}
-          className="text-xl font-semibold border-none bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="text-lg sm:text-xl font-semibold border-none bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
           placeholder="Note title..."
         />
       </div>
 
       {/* Markdown Editor */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-4 sm:p-6">
         <div className="h-full">
           <MDEditor
             value={content}

@@ -59,7 +59,7 @@ export const Sidebar = ({ notes, selectedNote, onSelectNote, onDeleteNote }: Sid
   };
 
   return (
-    <div className="w-80 bg-sidebar-bg border-r flex flex-col">
+    <div className="w-full h-full bg-sidebar-bg border-r flex flex-col">
       {/* Search */}
       <div className="p-4 border-b">
         <div className="relative">

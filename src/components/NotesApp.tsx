@@ -5,7 +5,9 @@ import { toast } from 'sonner';
 import { Sidebar } from './Sidebar';
 import { NoteEditor } from './NoteEditor';
 import { Button } from '@/components/ui/button';
-import { LogOut, Plus } from 'lucide-react';
+import { LogOut, Plus, Menu } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
+import { useState as useMobileState } from 'react';
 
 interface Note {
   id: string;
@@ -20,6 +22,7 @@ export const NotesApp = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useMobileState(false);
 
   useEffect(() => {
     if (user) {
@@ -131,28 +134,60 @@ export const NotesApp = () => {
 
   return (
     <div className="h-screen flex bg-background">
-      <Sidebar
-        notes={notes}
-        selectedNote={selectedNote}
-        onSelectNote={setSelectedNote}
-        onDeleteNote={deleteNote}
-      />
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       
-      <div className="flex-1 flex flex-col">
+      {/* Sidebar */}
+      <div className={`
+        fixed lg:relative inset-y-0 left-0 z-50 w-80 
+        transform transition-transform duration-300 ease-in-out
+        lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <Sidebar
+          notes={notes}
+          selectedNote={selectedNote}
+          onSelectNote={(note) => {
+            setSelectedNote(note);
+            setSidebarOpen(false); // Close sidebar on mobile when note is selected
+          }}
+          onDeleteNote={deleteNote}
+        />
+      </div>
+      
+      <div className="flex-1 flex flex-col lg:ml-0">
         {/* Header */}
         <header className="border-b bg-card p-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
+            {/* Mobile menu button */}
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="lg:hidden"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu className="h-4 w-4" />
+            </Button>
+            
             <h1 className="text-xl font-semibold bg-gradient-primary bg-clip-text text-transparent">
               QuillPad Notes
             </h1>
-            <Button onClick={createNote} size="sm" className="gap-2">
+            <Button onClick={createNote} size="sm" className="gap-2 hidden sm:flex">
               <Plus className="h-4 w-4" />
               New Note
+            </Button>
+            <Button onClick={createNote} size="sm" className="sm:hidden">
+              <Plus className="h-4 w-4" />
             </Button>
           </div>
           
           <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">
+            <ThemeToggle />
+            <span className="text-sm text-muted-foreground hidden sm:inline">
               {user?.email}
             </span>
             <Button variant="outline" size="sm" onClick={handleSignOut}>

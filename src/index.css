@@ -122,6 +122,71 @@ All colors MUST be HSL.
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  /* Color Themes */
+  .theme-red {
+    --primary: 0 70% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 0 70% 45%;
+    --gradient-primary: linear-gradient(135deg, hsl(0 70% 50%), hsl(0 75% 55%));
+    --ring: 0 70% 50%;
+  }
+
+  .theme-red.dark {
+    --primary: 0 75% 60%;
+    --primary-foreground: 0 0% 0%;
+    --primary-hover: 0 75% 65%;
+    --gradient-primary: linear-gradient(135deg, hsl(0 75% 60%), hsl(0 80% 65%));
+    --ring: 0 75% 60%;
+  }
+
+  .theme-blue {
+    --primary: 220 70% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 220 70% 45%;
+    --gradient-primary: linear-gradient(135deg, hsl(220 70% 50%), hsl(220 75% 55%));
+    --ring: 220 70% 50%;
+  }
+
+  .theme-blue.dark {
+    --primary: 220 75% 60%;
+    --primary-foreground: 0 0% 0%;
+    --primary-hover: 220 75% 65%;
+    --gradient-primary: linear-gradient(135deg, hsl(220 75% 60%), hsl(220 80% 65%));
+    --ring: 220 75% 60%;
+  }
+
+  .theme-purple {
+    --primary: 270 70% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 270 70% 45%;
+    --gradient-primary: linear-gradient(135deg, hsl(270 70% 50%), hsl(270 75% 55%));
+    --ring: 270 70% 50%;
+  }
+
+  .theme-purple.dark {
+    --primary: 270 75% 60%;
+    --primary-foreground: 0 0% 0%;
+    --primary-hover: 270 75% 65%;
+    --gradient-primary: linear-gradient(135deg, hsl(270 75% 60%), hsl(270 80% 65%));
+    --ring: 270 75% 60%;
+  }
+
+  .theme-orange {
+    --primary: 30 70% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 30 70% 45%;
+    --gradient-primary: linear-gradient(135deg, hsl(30 70% 50%), hsl(30 75% 55%));
+    --ring: 30 70% 50%;
+  }
+
+  .theme-orange.dark {
+    --primary: 30 75% 60%;
+    --primary-foreground: 0 0% 0%;
+    --primary-hover: 30 75% 65%;
+    --gradient-primary: linear-gradient(135deg, hsl(30 75% 60%), hsl(30 80% 65%));
+    --ring: 30 75% 60%;
+  }
 }
 
 @layer base {
