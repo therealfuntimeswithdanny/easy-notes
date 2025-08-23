@@ -39,8 +39,8 @@ const Index = () => {
 			<div className="min-h-screen flex flex-col bg-gradient-subtle">
 				{/* Hero Section */}
 				<header className="flex-1 flex flex-col justify-center items-center py-24 px-4">
-					<h1 className="text-5xl sm:text-6xl   /* responsive font sizes */ Font-extrabold         /* bold headline */ mb-4                   /* spacing below */ bg-gradient-primary    /* gradient text * bg-clip-text text-transparent drop-shadow            /* subtle text shadow */">
-					 QuillPad Notes
+					<h1 className="text-5xl sm:text-6xl   /* responsive font sizes */ Font-extrabold         /* bold headline */ mb-4                   /* spacing below */ bg-gradient-primary    /* gradient text * bg-clip-text drop-shadow            /* subtle text shadow */">
+					 Easy Notes
 					</h1>
 
 					<p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-2xl text-center">
@@ -74,7 +74,7 @@ const Index = () => {
 				</section>
 				{/* Footer */}
 				<footer className="py-6 text-center text-xs text-muted-foreground">
-					&copy; {new Date().getFullYear()} QuillPad Notes. All rights reserved.
+					&copy; {new Date().getFullYear()}Easy Notes. All rights reserved.
 				</footer>
 			</div>
 		);

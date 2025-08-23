@@ -209,7 +209,7 @@ export const NotesApp = () => {
               <Menu className="h-4 w-4" />
             </Button>
             
-            <h1 className="text-xl font-semibold bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-xl font-semibold bg-gradient-primary bg-clip-text">
               Easy Notes
             </h1>
             <Button onClick={createNote} size="sm" className="gap-2 hidden sm:flex">
