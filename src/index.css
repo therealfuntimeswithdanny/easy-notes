@@ -1,3 +1,4 @@
+/* Base Tailwind CSS layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,10 +6,9 @@
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
-
 @layer base {
   :root {
-    /* Notes app color palette - warm, minimal */
+    /* Default theme - Notes app color palette - warm, minimal */
     --background: 48 20% 98%;
     --foreground: 24 20% 12%;
 
@@ -33,201 +33,89 @@ All colors MUST be HSL.
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 48 30% 99%;
-
-    --border: 48 15% 90%;
-    --input: 48 15% 94%;
-    --ring: 142 35% 45%;
-
-    /* Custom semantic tokens */
-    --editor-bg: 48 50% 99%;
-    --sidebar-bg: 48 15% 97%;
-    --note-hover: 48 20% 95%;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(142 35% 45%), hsl(142 40% 50%));
-    --gradient-subtle: linear-gradient(180deg, hsl(48 30% 99%), hsl(48 25% 97%));
-    
-    /* Shadows */
-    --shadow-soft: 0 2px 8px hsl(24 20% 12% / 0.06);
-    --shadow-medium: 0 4px 16px hsl(24 20% 12% / 0.08);
-    
-    /* Animation */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark {
-    --background: 24 25% 8%;
-    --foreground: 48 20% 95%;
-
-    --card: 24 20% 10%;
-    --card-foreground: 48 20% 95%;
-
-    --popover: 24 20% 10%;
-    --popover-foreground: 48 20% 95%;
-
-    --primary: 142 40% 55%;
-    --primary-foreground: 24 25% 8%;
-    --primary-hover: 142 40% 60%;
-
-    --secondary: 24 15% 15%;
-    --secondary-foreground: 48 20% 85%;
-
-    --muted: 24 10% 12%;
-    --muted-foreground: 48 10% 65%;
-
-    --accent: 24 15% 18%;
-    --accent-foreground: 48 20% 90%;
-
-    --destructive: 0 65% 60%;
-    --destructive-foreground: 48 20% 95%;
-
-    --border: 24 15% 20%;
-    --input: 24 15% 18%;
-    --ring: 142 40% 55%;
-    
-    /* Dark mode custom tokens */
-    --editor-bg: 24 20% 9%;
-    --sidebar-bg: 24 15% 12%;
-    --note-hover: 24 15% 16%;
-    
-    --gradient-primary: linear-gradient(135deg, hsl(142 40% 55%), hsl(142 45% 60%));
-    --gradient-subtle: linear-gradient(180deg, hsl(24 20% 10%), hsl(24 15% 12%));
-    
-    --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.2);
-    --shadow-medium: 0 4px 16px hsl(0 0% 0% / 0.3);
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  /* Color Themes */
+  /* Red Theme - vibrant and warm */
   .theme-red {
-    --primary: 0 70% 50%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 0 70% 45%;
-    --gradient-primary: linear-gradient(135deg, hsl(0 70% 50%), hsl(0 75% 55%));
-    --ring: 0 70% 50%;
-    --background: 0 100% 80%;
+    --background: 0 90% 95%;
+    --foreground: 0 80% 20%;
+
+    --card: 0 90% 98%;
+    --card-foreground: 0 80% 25%;
+
+    --popover: 0 90% 98%;
+    --popover-foreground: 0 80% 25%;
+
+    --primary: 0 75% 55%;
+    --primary-foreground: 0 90% 98%;
+    --primary-hover: 0 75% 50%;
+
+    --secondary: 0 25% 90%;
+    --secondary-foreground: 0 50% 25%;
+
+    --muted: 0 20% 94%;
+    --muted-foreground: 0 20% 50%;
+
+    --accent: 0 30% 85%;
+    --accent-foreground: 0 80% 20%;
+
+    --destructive: 0 85% 50%;
+    --destructive-foreground: 0 90% 98%;
   }
 
-  .theme-red.dark {
-    --primary: 0 75% 60%;
-    --primary-foreground: 0 0% 0%;
-    --primary-hover: 0 75% 65%;
-    --gradient-primary: linear-gradient(135deg, hsl(0 75% 60%), hsl(0 80% 65%));
-    --ring: 0 75% 60%;
-    --background: 0 100% 55%;
-  }
-
+  /* Blue Theme - calm and cool */
   .theme-blue {
-    --primary: 220 70% 50%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 220 70% 45%;
-    --gradient-primary: linear-gradient(135deg, hsl(220 70% 50%), hsl(220 75% 55%));
-    --ring: 220 70% 50%;
-    --background: 220 100% 70%;
+    --background: 210 90% 95%;
+    --foreground: 210 80% 15%;
+
+    --card: 210 90% 98%;
+    --card-foreground: 210 80% 20%;
+
+    --popover: 210 90% 98%;
+    --popover-foreground: 210 80% 20%;
+
+    --primary: 220 70% 45%;
+    --primary-foreground: 210 90% 98%;
+    --primary-hover: 220 70% 40%;
+
+    --secondary: 210 25% 85%;
+    --secondary-foreground: 210 50% 35%;
+
+    --muted: 210 15% 92%;
+    --muted-foreground: 210 25% 50%;
+
+    --accent: 210 40% 80%;
+    --accent-foreground: 210 80% 15%;
+
+    --destructive: 220 65% 50%;
+    --destructive-foreground: 210 90% 98%;
   }
 
-  .theme-blue.dark {
-    --primary: 220 75% 60%;
-    --primary-foreground: 0 0% 0%;
-    --primary-hover: 220 75% 65%;
-    --gradient-primary: linear-gradient(135deg, hsl(220 75% 60%), hsl(220 80% 65%));
-    --ring: 220 75% 60%;
-    --background: 220 100% 50%;
-  }
+  /* Green Theme - fresh and natural */
+  .theme-green {
+    --background: 120 60% 95%;
+    --foreground: 120 40% 15%;
 
-  .theme-purple {
-    --primary: 270 70% 50%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 270 70% 45%;
-    --gradient-primary: linear-gradient(135deg, hsl(270 70% 50%), hsl(270 75% 55%));
-    --ring: 270 70% 50%;
-    --background: 288 100% 70%;
-  }
+    --card: 120 60% 98%;
+    --card-foreground: 120 40% 20%;
 
-  .theme-purple.dark {
-    --primary: 270 75% 60%;
-    --primary-foreground: 0 0% 0%;
-    --primary-hover: 270 75% 65%;
-    --gradient-primary: linear-gradient(135deg, hsl(270 75% 60%), hsl(270 80% 65%));
-    --ring: 270 75% 60%;
-    --background: 288 100% 55%;
-  }
+    --popover: 120 60% 98%;
+    --popover-foreground: 120 40% 20%;
 
-  .theme-orange {
-    --primary: 30 70% 50%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 30 70% 45%;
-    --gradient-primary: linear-gradient(135deg, hsl(30 70% 50%), hsl(30 75% 55%));
-    --ring: 30 70% 50%;
-    --background: 20 100% 70%;
-  }
+    --primary: 142 45% 45%;
+    --primary-foreground: 120 60% 98%;
+    --primary-hover: 142 45% 40%;
 
-  .theme-orange.dark {
-    --primary: 30 75% 60%;
-    --primary-foreground: 0 0% 0%;
-    --primary-hover: 30 75% 65%;
-    --gradient-primary: linear-gradient(135deg, hsl(30 75% 60%), hsl(30 80% 65%));
-    --ring: 30 75% 60%;
-    --background: 20 100% 55%;
-  }
-}
+    --secondary: 120 25% 85%;
+    --secondary-foreground: 120 50% 35%;
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+    --muted: 120 15% 92%;
+    --muted-foreground: 120 25% 50%;
 
-  body {
-    @apply bg-background text-foreground font-sans;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  
-  .prose {
-    @apply text-foreground;
-  }
-  
-  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-    @apply text-foreground;
-  }
-  
-  .prose strong {
-    @apply text-foreground;
-  }
-  
-  .prose code {
-    @apply text-foreground bg-muted px-1 py-0.5 rounded;
-  }
-  
-  .prose pre {
-    @apply bg-muted;
-  }
-  
-  .prose blockquote {
-    @apply text-muted-foreground border-l-accent;
+    --accent: 120 40% 80%;
+    --accent-foreground: 120 40% 15%;
+
+    --destructive: 0 75% 55%; /* Kept consistent for destructive actions */
+    --destructive-foreground: 120 60% 98%;
   }
 }
