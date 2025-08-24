@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Sidebar } from './Sidebar';
 import { NoteEditor } from './NoteEditor';
+import { ExportDialog } from './ExportDialog';
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { Button } from '@/components/ui/button';
-import { LogOut, Plus, Menu } from 'lucide-react';
+import { LogOut, Plus, Menu, Download } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { useState as useMobileState } from 'react';
 
@@ -25,6 +27,7 @@ export const NotesApp = () => {
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useMobileState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (user) {
@@ -157,6 +160,50 @@ export const NotesApp = () => {
     }
   };
 
+  const handleReorderNotes = async (reorderedNotes: Note[]) => {
+    // Update local state immediately for smooth UX
+    setNotes(reorderedNotes);
+    
+    // You could implement server-side ordering here if needed
+    // For now, we'll just update the local state
+  };
+
+  const forceSave = () => {
+    // This will be handled by the NoteEditor component
+    const event = new CustomEvent('forceSave');
+    document.dispatchEvent(event);
+  };
+
+  const focusSearch = () => {
+    searchInputRef.current?.focus();
+  };
+
+  const handleDeleteSelected = () => {
+    if (selectedNote) {
+      deleteNote(selectedNote.id);
+    }
+  };
+
+  const handleTogglePinSelected = () => {
+    if (selectedNote) {
+      togglePin(selectedNote.id);
+    }
+  };
+
+  const handleExportNotes = () => {
+    // This will be handled by the ExportDialog component
+  };
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts({
+    onNewNote: createNote,
+    onSave: forceSave,
+    onDelete: handleDeleteSelected,
+    onSearch: focusSearch,
+    onExport: handleExportNotes,
+    onTogglePin: handleTogglePinSelected,
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -192,6 +239,8 @@ export const NotesApp = () => {
           }}
           onDeleteNote={deleteNote}
           onTogglePin={togglePin}
+          onReorderNotes={handleReorderNotes}
+          searchInputRef={searchInputRef}
         />
       </div>
       
@@ -222,6 +271,17 @@ export const NotesApp = () => {
           </div>
           
           <div className="flex items-center gap-2">
+            <ExportDialog notes={notes} selectedNote={selectedNote}>
+              <Button variant="outline" size="sm" className="gap-2 hidden sm:flex">
+                <Download className="h-4 w-4" />
+                Export
+              </Button>
+            </ExportDialog>
+            <ExportDialog notes={notes} selectedNote={selectedNote}>
+              <Button variant="outline" size="sm" className="sm:hidden">
+                <Download className="h-4 w-4" />
+              </Button>
+            </ExportDialog>
             <ThemeToggle />
             <span className="text-sm text-muted-foreground hidden sm:inline">
               {user?.email}

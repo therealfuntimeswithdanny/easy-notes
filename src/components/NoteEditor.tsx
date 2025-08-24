@@ -2,6 +2,8 @@ import { useState, useCallback, useEffect } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { Input } from '@/components/ui/input';
 import { TagsInput } from './TagsInput';
+import { AutoSaveIndicator } from './AutoSaveIndicator';
+import { useAutoSaveIndicator } from '@/hooks/useAutoSaveIndicator';
 import { useTheme } from './ThemeProvider';
 import { debounce } from 'lodash';
 
@@ -22,6 +24,7 @@ interface NoteEditorProps {
 
 export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
   const { theme } = useTheme();
+  const { saveState, startSaving, markSaved, markError } = useAutoSaveIndicator();
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content);
   const [tags, setTags] = useState(note.tags || []);
@@ -35,30 +38,48 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
 
   // Debounced save functions
   const debouncedSaveTitle = useCallback(
-    debounce((newTitle: string) => {
+    debounce(async (newTitle: string) => {
       if (newTitle !== note.title) {
-        onUpdateNote(note.id, { title: newTitle });
+        startSaving();
+        try {
+          await onUpdateNote(note.id, { title: newTitle });
+          markSaved();
+        } catch (error) {
+          markError();
+        }
       }
     }, 500),
-    [note.id, note.title, onUpdateNote]
+    [note.id, note.title, onUpdateNote, startSaving, markSaved, markError]
   );
 
   const debouncedSaveContent = useCallback(
-    debounce((newContent: string) => {
+    debounce(async (newContent: string) => {
       if (newContent !== note.content) {
-        onUpdateNote(note.id, { content: newContent });
+        startSaving();
+        try {
+          await onUpdateNote(note.id, { content: newContent });
+          markSaved();
+        } catch (error) {
+          markError();
+        }
       }
     }, 1000),
-    [note.id, note.content, onUpdateNote]
+    [note.id, note.content, onUpdateNote, startSaving, markSaved, markError]
   );
 
   const debouncedSaveTags = useCallback(
-    debounce((newTags: string[]) => {
+    debounce(async (newTags: string[]) => {
       if (JSON.stringify(newTags) !== JSON.stringify(note.tags)) {
-        onUpdateNote(note.id, { tags: newTags });
+        startSaving();
+        try {
+          await onUpdateNote(note.id, { tags: newTags });
+          markSaved();
+        } catch (error) {
+          markError();
+        }
       }
     }, 1000),
-    [note.id, note.tags, onUpdateNote]
+    [note.id, note.tags, onUpdateNote, startSaving, markSaved, markError]
   );
 
   const handleTitleChange = (newTitle: string) => {
@@ -85,10 +106,26 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
     }
   };
 
+  // Listen for force save event
+  useEffect(() => {
+    const handleForceSave = () => {
+      debouncedSaveTitle.flush();
+      debouncedSaveContent.flush();
+      debouncedSaveTags.flush();
+    };
+
+    document.addEventListener('forceSave', handleForceSave);
+    return () => document.removeEventListener('forceSave', handleForceSave);
+  }, [debouncedSaveTitle, debouncedSaveContent, debouncedSaveTags]);
+
   return (
     <div className="h-full flex flex-col bg-editor-bg" onKeyDown={handleKeyDown}>
-      {/* Title */}
+      {/* Title with Auto-save Indicator */}
       <div className="p-4 sm:p-6 border-b bg-card/50 backdrop-blur-sm">
+        <div className="flex items-center justify-between gap-4 mb-2">
+          <h2 className="text-sm font-medium text-muted-foreground">Title</h2>
+          <AutoSaveIndicator saveState={saveState} />
+        </div>
         <Input
           value={title}
           onChange={(e) => handleTitleChange(e.target.value)}
@@ -102,7 +139,7 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
         <TagsInput
           tags={tags}
           onTagsChange={handleTagsChange}
-          placeholder="Add tags... (Ctrl+Enter to save)"
+          placeholder="Add tags... (Ctrl+Enter to save, Ctrl+P to pin)"
         />
       </div>
 
