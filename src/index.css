@@ -203,4 +203,93 @@
     --destructive: 0 75% 55%;
     --destructive-foreground: 48 30% 99%;
   }
+
+  /* ================= DARK MODE ================= */
+  .dark {
+    --background: 222 22% 8%;
+    --foreground: 210 15% 95%;
+
+    --card: 222 22% 10%;
+    --card-foreground: 210 15% 95%;
+
+    --popover: 222 22% 10%;
+    --popover-foreground: 210 15% 95%;
+
+    --primary: 142 45% 60%;
+    --primary-foreground: 222 22% 8%;
+    --primary-hover: 142 45% 55%;
+
+    --secondary: 222 15% 15%;
+    --secondary-foreground: 210 15% 85%;
+
+    --muted: 222 15% 12%;
+    --muted-foreground: 210 10% 65%;
+
+    --accent: 222 20% 18%;
+    --accent-foreground: 210 15% 90%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 210 15% 95%;
+
+    --border: 222 15% 20%;
+    --input: 222 15% 20%;
+    --ring: 142 45% 60%;
+  }
+
+  /* Enhanced Editor Styles */
+  .bg-editor-bg {
+    background: hsl(var(--background));
+  }
+
+  /* Smooth transitions */
+  * {
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  }
+
+  /* Markdown Editor Dark Mode Support */
+  .dark .w-md-editor {
+    background-color: hsl(var(--card)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .w-md-editor-text-pre,
+  .dark .w-md-editor-text-input,
+  .dark .w-md-editor-text {
+    background-color: hsl(var(--card)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .w-md-editor-bar {
+    background-color: hsl(var(--muted)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .w-md-editor-bar svg {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  /* Enhanced scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Focus ring improvements */
+  .focus-ring {
+    @apply focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
 }

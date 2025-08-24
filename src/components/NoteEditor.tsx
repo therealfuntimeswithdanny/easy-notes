@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { Input } from '@/components/ui/input';
 import { TagsInput } from './TagsInput';
+import { useTheme } from './ThemeProvider';
 import { debounce } from 'lodash';
 
 interface Note {
@@ -20,6 +21,7 @@ interface NoteEditorProps {
 }
 
 export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
+  const { theme } = useTheme();
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content);
   const [tags, setTags] = useState(note.tags || []);
@@ -74,38 +76,47 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
     debouncedSaveTags(newTags);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      // Force save immediately when Ctrl/Cmd + Enter is pressed
+      debouncedSaveTitle.flush();
+      debouncedSaveContent.flush();
+      debouncedSaveTags.flush();
+    }
+  };
+
   return (
-    <div className="h-full flex flex-col bg-editor-bg">
+    <div className="h-full flex flex-col bg-editor-bg" onKeyDown={handleKeyDown}>
       {/* Title */}
-      <div className="p-4 sm:p-6 border-b bg-card/50">
+      <div className="p-4 sm:p-6 border-b bg-card/50 backdrop-blur-sm">
         <Input
           value={title}
           onChange={(e) => handleTitleChange(e.target.value)}
-          className="text-lg sm:text-xl font-semibold border-none bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="text-lg sm:text-xl font-semibold border-none bg-transparent p-0 focus-ring"
           placeholder="Note title..."
         />
       </div>
 
       {/* Tags */}
-      <div className="p-4 sm:p-6 border-b bg-card/30">
+      <div className="p-4 sm:p-6 border-b bg-card/30 backdrop-blur-sm">
         <TagsInput
           tags={tags}
           onTagsChange={handleTagsChange}
-          placeholder="Add tags..."
+          placeholder="Add tags... (Ctrl+Enter to save)"
         />
       </div>
 
       {/* Markdown Editor */}
       <div className="flex-1 p-4 sm:p-6">
-        <div className="h-full">
+        <div className="h-full rounded-lg overflow-hidden border border-border/50">
           <MDEditor
             value={content}
             onChange={handleContentChange}
             height="100%"
             preview="edit"
             hideToolbar={false}
-            data-color-mode="light"
-            className="!bg-transparent"
+            data-color-mode={theme}
+            className="!bg-transparent !border-0"
           />
         </div>
       </div>
