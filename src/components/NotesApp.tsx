@@ -9,7 +9,7 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { Button } from '@/components/ui/button';
 import { LogOut, Plus, Menu, Download } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
-import { useState as useMobileState } from 'react';
+
 
 interface Note {
   id: string;
@@ -26,7 +26,7 @@ export const NotesApp = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useMobileState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const NotesApp = () => {
         setSelectedNote(data[0]);
       }
     } catch (error: any) {
-      toast.error('Failed to conect to Database, notes not loaded');
+      toast.error('Failed to connect to database, notes not loaded');
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,7 @@ export const NotesApp = () => {
         .from('notes')
         .insert({
           user_id: user.id,
-          title: 'Cick to add tittle',
+          title: 'Click to add title',
           content: '# New Note\n\nStart writing...',
           pinned: false,
           tags: [],
@@ -78,7 +78,7 @@ export const NotesApp = () => {
       setSelectedNote(newNote);
       toast.success('New note created');
     } catch (error: any) {
-      toast.error('Failed to Conect to Databse, note not created');
+      toast.error('Failed to connect to database, note not created');
     }
   };
 
@@ -99,7 +99,7 @@ export const NotesApp = () => {
         setSelectedNote(prev => prev ? { ...prev, ...updates } : null);
       }
     } catch (error: any) {
-      toast.error('Failed to connect to Database, note not saved');
+      toast.error('Failed to connect to database, note not saved');
     }
   };
 
@@ -121,7 +121,7 @@ export const NotesApp = () => {
       
       toast.success('Note deleted');
     } catch (error: any) {
-      toast.error('Failed to conect to Database, note not deleted');
+      toast.error('Failed to connect to database, note not deleted');
     }
   };
 
@@ -156,7 +156,7 @@ export const NotesApp = () => {
       
       toast.success(note.pinned ? 'Note unpinned' : 'Note pinned');
     } catch (error: any) {
-      toast.error('Failed to conect to Databse');
+      toast.error('Failed to connect to database');
     }
   };
 
