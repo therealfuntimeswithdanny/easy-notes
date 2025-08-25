@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { Sidebar } from './Sidebar';
 import { NoteEditor } from './NoteEditor';
 import { ExportDialog } from './ExportDialog';
+import { NoteTemplates } from './NoteTemplates';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { Button } from '@/components/ui/button';
 import { LogOut, Plus, Menu, Download } from 'lucide-react';
@@ -19,12 +20,14 @@ interface Note {
   updated_at: string;
   pinned: boolean;
   tags: string[];
+  category: string;
 }
 
 export const NotesApp = () => {
   const { user, signOut } = useAuth();
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -67,6 +70,35 @@ export const NotesApp = () => {
           content: '# New Note\n\nStart writing...',
           pinned: false,
           tags: [],
+          category: selectedCategory || 'General',
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+      
+      const newNote = data as Note;
+      setNotes(prev => [newNote, ...prev]);
+      setSelectedNote(newNote);
+      toast.success('New note created');
+    } catch (error: any) {
+      toast.error('Failed to connect to database, note not created');
+    }
+  };
+
+  const createNoteFromTemplate = async (template: { content: string; name: string; category: string }) => {
+    if (!user) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('notes')
+        .insert({
+          user_id: user.id,
+          title: template.name,
+          content: template.content,
+          pinned: false,
+          tags: [],
+          category: template.category,
         })
         .select()
         .single();
@@ -233,10 +265,12 @@ export const NotesApp = () => {
         <Sidebar
           notes={notes}
           selectedNote={selectedNote}
+          selectedCategory={selectedCategory}
           onSelectNote={(note) => {
             setSelectedNote(note);
             setSidebarOpen(false); // Close sidebar on mobile when note is selected
           }}
+          onSelectCategory={setSelectedCategory}
           onDeleteNote={deleteNote}
           onTogglePin={togglePin}
           onReorderNotes={handleReorderNotes}
@@ -261,13 +295,17 @@ export const NotesApp = () => {
             <h1 className="text-xl font-semibold bg-gradient-primary bg-clip-text">
               Easy Notes
             </h1>
-            <Button onClick={createNote} size="sm" className="gap-2 hidden sm:flex">
-              <Plus className="h-4 w-4" />
-               Create New Note
-            </Button>
-            <Button onClick={createNote} size="sm" className="sm:hidden">
-              <Plus className="h-4 w-4" />
-            </Button>
+            <NoteTemplates onSelectTemplate={createNoteFromTemplate}>
+              <Button size="sm" className="gap-2 hidden sm:flex">
+                <Plus className="h-4 w-4" />
+                Create New Note
+              </Button>
+            </NoteTemplates>
+            <NoteTemplates onSelectTemplate={createNoteFromTemplate}>
+              <Button size="sm" className="sm:hidden">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </NoteTemplates>
           </div>
           
           <div className="flex items-center gap-2">
@@ -308,10 +346,12 @@ export const NotesApp = () => {
                 <p className="text-muted-foreground mb-4">
                   Create your first note to get started
                 </p>
-                <Button onClick={createNote} className="gap-2">
-                  <Plus className="h-4 w-4" />
-                  Create Note
-                </Button>
+                <NoteTemplates onSelectTemplate={createNoteFromTemplate}>
+                  <Button className="gap-2">
+                    <Plus className="h-4 w-4" />
+                    Create Note
+                  </Button>
+                </NoteTemplates>
               </div>
             </div>
           )}

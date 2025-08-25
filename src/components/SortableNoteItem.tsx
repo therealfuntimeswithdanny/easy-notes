@@ -13,6 +13,7 @@ interface Note {
   updated_at: string;
   pinned: boolean;
   tags: string[];
+  category: string;
 }
 
 interface SortableItemProps {

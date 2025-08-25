@@ -5,6 +5,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Search } from 'lucide-react';
 import { DraggableNotesList } from './DraggableNotesList';
+import { CategoryManager } from './CategoryManager';
 import { cn } from '@/lib/utils';
 
 interface Note {
@@ -15,23 +16,37 @@ interface Note {
   updated_at: string;
   pinned: boolean;
   tags: string[];
+  category: string;
 }
 
 interface SidebarProps {
   notes: Note[];
   selectedNote: Note | null;
+  selectedCategory: string | null;
   onSelectNote: (note: Note) => void;
+  onSelectCategory: (category: string | null) => void;
   onDeleteNote: (noteId: string) => void;
   onTogglePin: (noteId: string) => void;
   onReorderNotes: (notes: Note[]) => void;
   searchInputRef: React.RefObject<HTMLInputElement>;
 }
 
-export const Sidebar = ({ notes, selectedNote, onSelectNote, onDeleteNote, onTogglePin, onReorderNotes, searchInputRef }: SidebarProps) => {
+export const Sidebar = ({ 
+  notes, 
+  selectedNote, 
+  selectedCategory, 
+  onSelectNote, 
+  onSelectCategory, 
+  onDeleteNote, 
+  onTogglePin, 
+  onReorderNotes, 
+  searchInputRef 
+}: SidebarProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const allTags = Array.from(new Set(notes.flatMap(note => note.tags || [])));
+  const allCategories = Array.from(new Set(notes.map(note => note.category)));
 
   const filteredNotes = notes.filter(note => {
     const matchesSearch = note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -40,7 +55,9 @@ export const Sidebar = ({ notes, selectedNote, onSelectNote, onDeleteNote, onTog
     const matchesTags = selectedTags.length === 0 || 
       selectedTags.every(tag => note.tags?.includes(tag));
     
-    return matchesSearch && matchesTags;
+    const matchesCategory = selectedCategory === null || note.category === selectedCategory;
+    
+    return matchesSearch && matchesTags && matchesCategory;
   });
 
   const toggleTag = (tag: string) => {
@@ -51,12 +68,27 @@ export const Sidebar = ({ notes, selectedNote, onSelectNote, onDeleteNote, onTog
     );
   };
 
+  const createCategory = (categoryName: string) => {
+    // This will be handled when creating notes with the new category
+    onSelectCategory(categoryName);
+  };
+
   return (
     <div className="w-full h-full bg-sidebar-bg border-r flex flex-col">
       {/* Header */}
       <div className="p-4 border-b">
         <h2 className="font-semibold text-lg">Notes</h2>
         <p className="text-sm text-muted-foreground">{notes.length} total</p>
+      </div>
+
+      {/* Categories */}
+      <div className="p-4 border-b">
+        <CategoryManager
+          categories={allCategories}
+          selectedCategory={selectedCategory}
+          onSelectCategory={onSelectCategory}
+          onCreateCategory={createCategory}
+        />
       </div>
 
       {/* Search */}

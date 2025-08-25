@@ -3,6 +3,7 @@ import MDEditor from '@uiw/react-md-editor';
 import { Input } from '@/components/ui/input';
 import { TagsInput } from './TagsInput';
 import { AutoSaveIndicator } from './AutoSaveIndicator';
+import { WordCount } from './WordCount';
 import { useAutoSaveIndicator } from '@/hooks/useAutoSaveIndicator';
 import { useTheme } from './ThemeProvider';
 import { debounce } from 'lodash';
@@ -15,6 +16,7 @@ interface Note {
   updated_at: string;
   pinned: boolean;
   tags: string[];
+  category: string;
 }
 
 interface NoteEditorProps {
@@ -124,7 +126,10 @@ export const NoteEditor = ({ note, onUpdateNote }: NoteEditorProps) => {
       <div className="p-4 sm:p-6 border-b bg-card/50 backdrop-blur-sm">
         <div className="flex items-center justify-between gap-4 mb-2">
           <h2 className="text-sm font-medium text-muted-foreground">Title</h2>
-          <AutoSaveIndicator saveState={saveState} />
+          <div className="flex items-center gap-4">
+            <WordCount content={content} />
+            <AutoSaveIndicator saveState={saveState} />
+          </div>
         </div>
         <Input
           value={title}
